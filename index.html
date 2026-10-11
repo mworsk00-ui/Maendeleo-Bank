@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maendeleo Bank PLC - Together in Progress</title>
+    <!-- Modern Font: Plus Jakarta Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Inter Font (for Mcenter brand) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- CSS VARIABLES --- */
+        :root {
+            --purple-main: #7D3C8E;
+            --purple-dark: #4a1e56;
+            --purple-light: #f3e8f5;
+            --orange-accent: #F59E0B; 
+            --text-dark: #1a1a1a;
+            --text-gray: #6b7280;
+            --bg-body: #f8f9fc;
+            --white: #ffffff;
+            --shadow-soft: 0 10px 40px -10px rgba(0,0,0,0.08);
+            --shadow-header: 0 4px 20px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+        }
+
+        /* --- GLOBAL --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+        /* --- HEADER WRAPPER --- */
+        .header-wrapper {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%;
+            max-width: 1280px;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        .header-wrapper.scrolled {
+            position: fixed;
+            top: 10px;
+        }
+        .header-container {
+            background: var(--white);
+            border-radius: 50px;
+            padding: 15px 30px;
+            box-shadow: var(--shadow-header);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Top Row */
+        .header-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 15px;
+        }
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+        }
+        .logo-section img {
+            height: 45px;
+        }
+        .logo-tagline {
+            font-size: 0.6rem;
+            color: var(--text-gray);
+            margin-top: 2px;
+            font-style: italic;
+        }
+
+        .header-utility-links {
+            display: flex;
+            gap: 20px;
+            font-size: 0.75rem;
+            color: var(--text-gray);
+        }
+        .header-utility-links a {
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 8px;
+            border-radius: 6px;
+        }
+        .header-utility-links a:hover {
+            color: var(--purple-main);
+            background-color: var(--purple-light);
+        }
+        .header-utility-links i {
+            font-size: 0.8rem;
+        }
+
+        .header-action-buttons {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-login-header {
+            background-color: var(--purple-main);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-login-header:hover { background-color: var(--purple-dark); }
+        .btn-call-header {
+            background-color: var(--orange-accent);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-call-header:hover { background-color: #d97706; }
+        .search-icon {
+            color: var(--text-dark);
+            font-size: 1rem;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        /* Bottom Row */
+        .header-bottom-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+        }
+        .header-bottom-row > a,
+        .header-bottom-row .nav-item > a {
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-dark);
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            padding: 8px 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+        .header-bottom-row > a:hover,
+        .header-bottom-row .nav-item > a:hover {
+            color: var(--purple-main);
+            background-color: var(--purple-light);
+        }
+        .header-bottom-row > a.active,
+        .header-bottom-row .nav-item > a.active {
+            color: var(--purple-main);
+            background-color: var(--purple-light);
+        }
+
+        /* Dropdown */
+        .nav-item { position: relative; }
+        .nav-item .dropdown-arrow {
+            font-size: 0.6rem;
+            transition: transform 0.3s ease;
+        }
+        .nav-item:hover .dropdown-arrow { transform: rotate(180deg); }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--white);
+            min-width: 220px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-radius: 12px;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            border: 1px solid #f3f4f6;
+            margin-top: 5px;
+        }
+        .nav-item:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .dropdown-menu ul li a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .dropdown-menu ul li a:hover {
+            background-color: var(--purple-light);
+            color: var(--purple-main);
+            padding-left: 25px;
+        }
+
+        /* Hamburger */
+        .hamburger-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--purple-main);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(20px);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            padding: 30px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            overflow-y: auto;
+        }
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .mobile-menu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        .mobile-menu-header img { height: 40px; }
+        .mobile-menu-close {
+            background: transparent;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            cursor: pointer;
+        }
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .mobile-nav-links a {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            padding: 10px 0;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .mobile-nav-links a:hover { color: var(--purple-main); }
+        
+        .mobile-utility-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .mobile-utility-links a {
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .mobile-utility-links a:hover { color: var(--purple-main); }
+
+        .mobile-action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .mobile-action-buttons .btn-login-header {
+            justify-content: center;
+            padding: 14px 20px;
+            font-size: 1rem;
+        }
+        .mobile-action-buttons .btn-call-header {
+            justify-content: center;
+            padding: 14px 20px;
+            font-size: 1rem;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            background: linear-gradient(135deg, var(--purple-main) 0%, var(--purple-dark) 100%);
+            padding: 220px 0 100px;
+            position: relative;
+            overflow: hidden;
+            color: var(--white);
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.05) 0%, transparent 50%),
+                              radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .hero-social-side {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 10;
+        }
+        .hero-social-side a {
+            width: 36px; height: 36px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--white);
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+        .hero-social-side a:hover { background: var(--white); color: var(--purple-main); }
+
+        .hero-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: var(--transition);
+            z-index: 10;
+        }
+        .hero-arrow:hover { opacity: 1; }
+        .hero-arrow.left { left: 60px; }
+        .hero-arrow.right { right: 60px; }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 30px;
+        }
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .btn-learn-more {
+            background-color: var(--orange-accent);
+            color: var(--white);
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+        .btn-learn-more:hover { background-color: #d97706; transform: translateY(-3px); }
+
+        .store-badges { display: flex; gap: 12px; }
+        .store-badges img {
+            height: 45px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .store-badges img:hover { transform: translateY(-3px); }
+
+        .hero-image-circle {
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 8px solid rgba(255,255,255,0.1);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            margin: 0 auto;
+            position: relative;
+        }
+        .hero-image-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-image-circle::after {
+            content: '';
+            position: absolute;
+            bottom: 20px; right: 20px;
+            width: 60px; height: 60px;
+            background-color: var(--orange-accent);
+            border-radius: 50%;
+            border: 4px solid var(--white);
+        }
+
+        /* --- HELP SECTION --- */
+        .help-section {
+            background-color: var(--white);
+            padding: 80px 0;
+        }
+        .help-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--purple-main);
+            margin-bottom: 40px;
+        }
+
+        .quick-actions-row {
+            background-color: var(--purple-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px 0;
+            margin-bottom: 50px;
+            border-radius: 8px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .quick-action-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+            padding: 0 30px;
+            position: relative;
+            flex: 1;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .quick-action-item:hover {
+            transform: translateY(-3px);
+        }
+        .quick-action-item i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .quick-action-item span {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .quick-action-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 50px;
+            width: 1px;
+            background-color: rgba(255,255,255,0.4);
+        }
+
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            background-color: var(--bg-body);
+            padding: 8px;
+            border-radius: 50px;
+            max-width: 900px;
+            margin: 0 auto 50px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .tab-btn.active {
+            background-color: var(--white);
+            color: var(--purple-main);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .tab-btn:hover:not(.active) { color: var(--text-dark); }
+
+        .tab-content {
+            display: none;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+        .tab-content.active { display: grid; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+            border: 1px solid #f3f4f6;
+            display: flex;
+            flex-direction: column;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(125, 60, 142, 0.15);
+        }
+        .product-img { height: 200px; overflow: hidden; flex-shrink: 0; }
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        .product-card:hover .product-img img { transform: scale(1.05); }
+        
+        .product-body { padding: 25px; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-body h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+        .product-body p {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        .product-link {
+            color: var(--purple-main);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: auto;
+        }
+        .product-link:hover { gap: 10px; }
+
+        /* --- FOREX SECTION --- */
+        .forex-section {
+            padding: 80px 0;
+            background-color: var(--bg-body);
+        }
+        .forex-header { text-align: center; margin-bottom: 40px; }
+        .forex-header h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--purple-main);
+        }
+        .forex-table-wrapper {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-soft);
+            overflow-x: auto;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .forex-table { width: 100%; border-collapse: collapse; }
+        .forex-table th {
+            background-color: var(--purple-main);
+            color: var(--white);
+            padding: 15px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+        .forex-table td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.95rem;
+        }
+        .forex-table tr:last-child td { border-bottom: none; }
+        .forex-table tr:hover { background-color: var(--purple-light); }
+        .currency-info { display: flex; align-items: center; gap: 10px; }
+        .flag-icon { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
+        .buy-rate { color: #10b981; font-weight: 700; }
+        .sell-rate { color: #ef4444; font-weight: 700; }
+
+        /* --- MOBILE BANKING SECTION --- */
+        .mobile-section {
+            padding: 80px 0;
+            background-color: var(--purple-main);
+            color: var(--white);
+            border-radius: 40px 40px 0 0;
+            margin-top: 40px;
+        }
+        .mobile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .mobile-text h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+        .mobile-text p { margin-bottom: 25px; opacity: 0.9; }
+        
+        .ussd-highlight {
+            background: rgba(255,255,255,0.15);
+            padding: 15px 30px;
+            border-radius: var(--radius-md);
+            display: inline-flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 25px;
+            border: 2px solid rgba(255,255,255,0.4);
+            backdrop-filter: blur(10px);
+            letter-spacing: 2px;
+            min-width: 260px;
+        }
+        .ussd-highlight .dial-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            margin-right: 15px;
+            padding-right: 15px;
+            border-right: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1.8rem;
+            background-color: var(--white);
+            margin-left: 5px;
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .mobile-features li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .mobile-features i {
+            background: rgba(255,255,255,0.2);
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+        .mobile-image img {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: rgba(125, 60, 142, 0.95);
+            color: #f3e8f5;
+            padding: 60px 0 20px;
+            backdrop-filter: blur(10px);
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand img { height: 50px; margin-bottom: 20px; }
+        .footer-brand p { font-size: 0.9rem; margin-bottom: 20px; }
+        .footer-social a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 36px; height: 36px; background: rgba(255,255,255,0.1);
+            border-radius: 50%; color: var(--white); margin-right: 10px;
+            transition: var(--transition);
+        }
+        .footer-social a:hover { background: var(--white); color: var(--purple-main); transform: translateY(-3px); }
+        .footer-col h4 { color: var(--white); font-size: 1rem; margin-bottom: 20px; font-weight: 600; }
+        .footer-col ul li { margin-bottom: 12px; font-size: 0.9rem; }
+        .footer-col ul li a:hover { color: var(--white); padding-left: 5px; transition: var(--transition); }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 20px; text-align: center; font-size: 0.85rem;
+        }
+
+        /* ==========================================
+           MCENTER BRAND FOOTER (NEW)
+           ========================================== */
+        .mcenter-footer {
+            background: #e8eefc;
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        .mcenter-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            white-space: nowrap;
+            font-family: 'Inter', Arial, sans-serif;
+        }
+        .mcenter-brand-name {
+            font-size: 40px;
+            font-weight: 900;
+            letter-spacing: -1.8px;
+            line-height: 1;
+            flex-shrink: 0;
+            color: #0f172a;
+        }
+        .mcenter-brand-name .mc1 { color: #1a73e8; }
+        .mcenter-brand-name .mc2 { color: #000000; }
+        .mcenter-brand-name .mc3 { color: #34A853; }
+        .mcenter-brand-name .mc4 { color: #FBBC05; }
+        .mcenter-brand-name .mc5 { color: #1a73e8; }
+        .mcenter-brand-name .mc6 { color: #000000; }
+        .mcenter-brand-name .mc7 { color: #34A853; }
+
+        .mcenter-divider {
+            display: inline-block;
+            width: 2px;
+            height: 46px;
+            background: rgba(15, 23, 42, 0.14);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+        .mcenter-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+        }
+        .mcenter-sub {
+            font-size: 15px;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: 0.2px;
+        }
+        .mcenter-tagline {
+            font-size: 11px;
+            font-style: italic;
+            color: #4a5b7c;
+            padding-left: 22px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Contact Info */
+        .mcenter-contact {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 10px;
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 14px;
+            color: #0f172a;
+        }
+        .mcenter-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.7);
+            padding: 10px 18px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .mcenter-contact-item:hover {
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        .mcenter-contact-item i {
+            color: #1a73e8;
+            font-size: 14px;
+        }
+        .mcenter-contact-item a {
+            color: #0f172a;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .mcenter-contact-item a:hover {
+            color: #1a73e8;
+        }
+
+        /* Responsive for Mcenter brand */
+        @media (max-width: 640px) {
+            .mcenter-brand { gap: 12px; }
+            .mcenter-brand-name { font-size: 28px; letter-spacing: -1.2px; }
+            .mcenter-divider { height: 34px; }
+            .mcenter-sub { font-size: 12px; }
+            .mcenter-tagline { font-size: 9px; padding-left: 14px; }
+            .mcenter-contact { flex-direction: column; align-items: center; gap: 10px; }
+        }
+        @media (max-width: 400px) {
+            .mcenter-brand { gap: 8px; }
+            .mcenter-brand-name { font-size: 22px; letter-spacing: -0.8px; }
+            .mcenter-divider { height: 28px; width: 1.5px; }
+            .mcenter-sub { font-size: 10px; }
+            .mcenter-tagline { font-size: 8px; padding-left: 10px; }
+        }
+
+        /* --- AI CHATBOT --- */
+        .ai-float-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--purple-main), var(--purple-dark));
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            box-shadow: 0 10px 30px rgba(125, 60, 142, 0.4);
+            cursor: pointer;
+            z-index: 9998;
+            transition: var(--transition);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        .ai-float-btn:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 15px 40px rgba(125, 60, 142, 0.6);
+        }
+        .ai-float-btn::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            border: 2px solid var(--purple-main);
+            animation: pulse-ring 2s infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+        .ai-float-btn .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--orange-accent);
+            color: white;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            border: 2px solid var(--white);
+        }
+
+        .ai-chat-window {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 380px;
+            max-height: 550px;
+            background: var(--white);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            z-index: 9998;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid #f3f4f6;
+        }
+        .ai-chat-window.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .ai-chat-header {
+            background: linear-gradient(135deg, var(--purple-main), var(--purple-dark));
+            color: var(--white);
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .ai-chat-header .ai-avatar {
+            width: 40px; height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .ai-chat-header .ai-info h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+        .ai-chat-header .ai-info p {
+            font-size: 0.7rem;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .ai-chat-header .ai-info p .status-dot {
+            width: 6px; height: 6px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse-dot 1.5s infinite;
+        }
+        @keyframes pulse-dot {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        .ai-chat-close {
+            margin-left: auto;
+            background: transparent;
+            border: none;
+            color: var(--white);
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+        .ai-chat-close:hover { opacity: 1; transform: rotate(90deg); }
+
+        .ai-chat-body {
+            padding: 20px;
+            overflow-y: auto;
+            flex-grow: 1;
+            background: var(--bg-body);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 350px;
+        }
+        .ai-message {
+            background: var(--white);
+            padding: 12px 16px;
+            border-radius: 16px 16px 16px 4px;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            max-width: 85%;
+            align-self: flex-start;
+            line-height: 1.5;
+        }
+        .ai-message strong { color: var(--purple-main); }
+        .user-message {
+            background: var(--purple-main);
+            color: var(--white);
+            padding: 12px 16px;
+            border-radius: 16px 16px 4px 16px;
+            font-size: 0.85rem;
+            max-width: 85%;
+            align-self: flex-end;
+            line-height: 1.5;
+            box-shadow: 0 4px 12px rgba(125, 60, 142, 0.2);
+        }
+
+        .ai-suggestions {
+            padding: 0 20px 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            background: var(--bg-body);
+        }
+        .suggestion-chip {
+            background: var(--white);
+            border: 1px solid #e5e7eb;
+            color: var(--purple-main);
+            padding: 8px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .suggestion-chip:hover {
+            background: var(--purple-main);
+            color: var(--white);
+            border-color: var(--purple-main);
+            transform: translateY(-2px);
+        }
+
+        .ai-chat-footer {
+            padding: 15px 20px;
+            background: var(--white);
+            border-top: 1px solid #f3f4f6;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .ai-chat-footer input {
+            flex-grow: 1;
+            border: 1px solid #e5e7eb;
+            border-radius: 50px;
+            padding: 10px 18px;
+            font-size: 0.85rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            outline: none;
+            transition: var(--transition);
+        }
+        .ai-chat-footer input:focus {
+            border-color: var(--purple-main);
+            box-shadow: 0 0 0 3px rgba(125, 60, 142, 0.1);
+        }
+        .ai-chat-send {
+            background: var(--purple-main);
+            color: var(--white);
+            border: none;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+        .ai-chat-send:hover {
+            background: var(--purple-dark);
+            transform: scale(1.1);
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+            background: var(--white);
+            border-radius: 16px 16px 16px 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            max-width: 60px;
+            align-self: flex-start;
+        }
+        .typing-indicator span {
+            width: 6px; height: 6px;
+            background: var(--text-gray);
+            border-radius: 50%;
+            animation: typing-bounce 1.4s infinite;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing-bounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .header-bottom-row { display: none; }
+            .header-utility-links { display: none; }
+            .hamburger-btn { display: block; }
+
+            .header-top-row {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding-bottom: 0;
+                border-bottom: none;
+            }
+            .logo-section img { height: 35px; }
+            .logo-tagline { display: none; }
+            .header-action-buttons .btn-login-header,
+            .header-action-buttons .btn-call-header,
+            .header-action-buttons .search-icon {
+                display: none;
+            }
+
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .hero-buttons { justify-content: center; }
+            .hero-image-circle { max-width: 350px; margin-top: 40px; }
+            .hero-social-side { display: none; }
+            .hero-arrow { display: none; }
+            .tab-content { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .mobile-grid { grid-template-columns: 1fr; text-align: center; }
+            .mobile-features li { justify-content: center; }
+
+            .quick-actions-row { flex-wrap: wrap; padding: 20px 10px; }
+            .quick-action-item { flex: 1 1 50%; padding: 15px 10px; margin-bottom: 10px; }
+            .quick-action-item:nth-child(2)::after { display: none; }
+            .quick-action-item:nth-child(4)::after { display: none; }
+        }
+        @media (max-width: 768px) {
+            .header-container { border-radius: 20px; padding: 12px 20px; }
+            .hero { padding: 160px 0 60px; }
+            .hero-text h1 { font-size: 2rem; }
+            .store-badges { justify-content: center; }
+            .tab-content { grid-template-columns: 1fr; }
+            .tabs-container { border-radius: 20px; }
+            .footer-grid { grid-template-columns: 1fr; }
+
+            .quick-actions-row { flex-direction: column; padding: 15px; }
+            .quick-action-item { flex: 1 1 100%; padding: 15px 0; border-bottom: 1px solid rgba(255,255,255,0.2); }
+            .quick-action-item:last-child { border-bottom: none; }
+            .quick-action-item:not(:last-child)::after { display: none; }
+
+            .ai-chat-window {
+                width: calc(100% - 30px);
+                right: 15px;
+                bottom: 100px;
+                max-height: 70vh;
+            }
+            .ai-float-btn {
+                bottom: 20px;
+                right: 20px;
+                width: 58px;
+                height: 58px;
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER WRAPPER -->
+    <div class="header-wrapper" id="header-wrapper">
+        <div class="header-container">
+            <div class="header-top-row">
+                <div class="logo-section">
+                    <a href="https://maendeleobank.co.tz">
+                        <img src="https://maendeleobank.co.tz/wp-content/uploads/2026/08/maendeleologo.jpg.jpeg" alt="Maendeleo Bank">
+                    </a>
+                    <span class="logo-tagline">Together in Progress</span>
+                </div>
+                <div class="header-utility-links">
+                    <a href="http://ibanking.maendeleobank.co.tz"><i class="fas fa-desktop"></i> Internet Banking</a>
+                    <a href="https://maendeleobank.co.tz/index.php/orodha-ya-maendeleo-bank-wakala/"><i class="fas fa-map-marker-alt"></i> Where are we</a>
+                    <a href="https://maendeleobank.co.tz/index.php/tender/"><i class="fas fa-handshake"></i> Tender</a>
+                    <a href="https://maendeleobank.co.tz/index.php/career/"><i class="fas fa-award"></i> Career</a>
+                    <a href="https://maendeleobank.co.tz/index.php/whistle-blowing/"><i class="fas fa-bullhorn"></i> Whistle Blowing</a>
+                </div>
+                <div class="header-action-buttons">
+                    <a href="http://ibanking.maendeleobank.co.tz" class="btn-login-header"><i class="fas fa-lock"></i> Login</a>
+                    <a href="tel:0800750089" class="btn-call-header"><i class="fas fa-phone"></i> 0800750089</a>
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <button class="hamburger-btn" id="hamburgerBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="header-bottom-row">
+                <a href="https://maendeleobank.co.tz/" class="active">Home</a>
+                <a href="https://maendeleobank.co.tz/index.php/personal-banking/">Personal Banking</a>
+                <a href="https://maendeleobank.co.tz/index.php/business-banking/">Business Banking</a>
+                <a href="https://maendeleobank.co.tz/index.php/loans/">Loans</a>
+                
+                <div class="nav-item">
+                    <a href="https://maendeleobank.co.tz/index.php/reports-2/">
+                        Reports <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <ul>
+                            <li><a href="https://maendeleobank.co.tz/index.php/taarifa-ya-mkutano-mkuu/">Taarifa Ya Mkutano Mkuu</a></li>
+                            <li><a href="https://maendeleobank.co.tz/index.php/annual-reports/">Annual Reports</a></li>
+                            <li><a href="https://maendeleobank.co.tz/index.php/agm-book/">AGM Book</a></li>
+                            <li><a href="https://maendeleobank.co.tz/index.php/financial-report/">Financial Report</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <a href="https://maendeleobank.co.tz/index.php/about-us/">
+                        About us <i class="fas fa-chevron-down dropdown-arrow"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <ul>
+                            <li><a href="https://maendeleobank.co.tz/index.php/about-us/#ourjourney">Our Journey</a></li>
+                            <li><a href="https://maendeleobank.co.tz/index.php/about-us/#corevalues">Our Core Values</a></li>
+                            <li><a href="https://maendeleobank.co.tz/index.php/mbmanagement/">Management</a></li>
+                            <li><a href="https://maendeleobank.co.tz/index.php/mbdirectors">Board Of Directors</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOBILE MENU OVERLAY -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <img src="https://maendeleobank.co.tz/wp-content/uploads/2026/08/maendeleologo.jpg.jpeg" alt="Maendeleo Bank">
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="mobile-nav-links">
+            <a href="https://maendeleobank.co.tz/">Home <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i></a>
+            <a href="https://maendeleobank.co.tz/index.php/personal-banking/">Personal Banking <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i></a>
+            <a href="https://maendeleobank.co.tz/index.php/business-banking/">Business Banking <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i></a>
+            <a href="https://maendeleobank.co.tz/index.php/loans/">Loans <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i></a>
+            <a href="https://maendeleobank.co.tz/index.php/reports-2/">Reports <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i></a>
+            <a href="https://maendeleobank.co.tz/index.php/about-us/">About us <i class="fas fa-chevron-right" style="font-size: 0.8rem;"></i></a>
+        </div>
+
+        <div class="mobile-utility-links">
+            <a href="http://ibanking.maendeleobank.co.tz"><i class="fas fa-desktop"></i> Internet Banking</a>
+            <a href="https://maendeleobank.co.tz/index.php/orodha-ya-maendeleo-bank-wakala/"><i class="fas fa-map-marker-alt"></i> Where are we</a>
+            <a href="https://maendeleobank.co.tz/index.php/tender/"><i class="fas fa-handshake"></i> Tender</a>
+            <a href="https://maendeleobank.co.tz/index.php/career/"><i class="fas fa-award"></i> Career</a>
+            <a href="https://maendeleobank.co.tz/index.php/whistle-blowing/"><i class="fas fa-bullhorn"></i> Whistle Blowing</a>
+        </div>
+
+        <div class="mobile-action-buttons">
+            <a href="http://ibanking.maendeleobank.co.tz" class="btn-login-header"><i class="fas fa-lock"></i> Login</a>
+            <a href="tel:0800750089" class="btn-call-header"><i class="fas fa-phone"></i> 0800750089</a>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-social-side">
+            <a href="https://www.facebook.com/maendeleobankplctz" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/maendeleobankplc/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com/Maendeleobanktz" target="_blank"><i class="fab fa-x-twitter"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        
+        <div class="hero-arrow left"><i class="fas fa-chevron-left"></i></div>
+        <div class="hero-arrow right"><i class="fas fa-chevron-right"></i></div>
+
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <h1>Maendeleo Bank PLC yazindua Tawi jipya jijini Arusha.</h1>
+                <div class="hero-buttons">
+                    <a href="https://maendeleobank.co.tz/index.php/maendeleo-bank-yazindua-tawi-jipya-arusha/" class="btn-learn-more">Learn More</a>
+                    <div class="store-badges">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on the App Store">
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image-circle">
+                <img src="https://maendeleobank.co.tz/wp-content/uploads/2026/02/TZM3633-1024x683.jpg" alt="Maendeleo Bank Arusha Branch Launch">
+            </div>
+        </div>
+    </section>
+
+    <!-- HELP SECTION -->
+    <section class="help-section">
+        <div class="container">
+            <h2 class="help-title">What can we help you with today?</h2>
+
+            <div class="quick-actions-row">
+                <a href="https://maendeleobank.co.tz/index.php/personal-banking/" class="quick-action-item">
+                    <i class="fas fa-user"></i>
+                    <span>Personal Banking</span>
+                </a>
+                <a href="https://maendeleobank.co.tz/index.php/business-banking/" class="quick-action-item">
+                    <i class="fas fa-money-bag"></i>
+                    <span>Business Banking</span>
+                </a>
+                <a href="https://maendeleobank.co.tz/index.php/loans/" class="quick-action-item">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <span>Loan Services</span>
+                </a>
+                <a href="http://ibanking.maendeleobank.co.tz" class="quick-action-item">
+                    <i class="fas fa-laptop"></i>
+                    <span>Internet Banking</span>
+                </a>
+            </div>
+
+            <div class="tabs-container">
+                <button class="tab-btn active" onclick="openTab(event, 'news')">News & Events</button>
+                <button class="tab-btn" onclick="openTab(event, 'personal')">Personal</button>
+                <button class="tab-btn" onclick="openTab(event, 'sme')">SME Banking</button>
+                <button class="tab-btn" onclick="openTab(event, 'islamic')">Interest-Free Banking</button>
+                <button class="tab-btn" onclick="openTab(event, 'diaspora')">Diaspora Banking</button>
+                <button class="tab-btn" onclick="openTab(event, 'international')">International Banking</button>
+            </div>
+
+            <div id="news" class="tab-content active">
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://maendeleobank.co.tz/wp-content/uploads/2026/02/TZM3289-683x1024.jpg" alt="Maendeleo Bank Arusha Branch Launch">
+                    </div>
+                    <div class="product-body">
+                        <h3>Maendeleo Bank PLC Officially Launches Arusha Branch</h3>
+                        <p>The Head of the Evangelical Lutheran Church in Tanzania (ELCT), Bishop Dr. Alex Malasusa, today, Tuesday, February 24, 2026, officially launched the new branch of Maendeleo Bank PLC in Arusha City. This is the sixth branch of our bank and the first to be opened outside the Dar es Salaam Region.</p>
+                        <a href="https://maendeleobank.co.tz/index.php/maendeleo-bank-yazindua-tawi-jipya-arusha/" class="product-link">Read more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://maendeleobank.co.tz/wp-content/uploads/2024/08/maendeleoban.co_.tz_dividend-1536x671.png" alt="Dividend Announcement & Share Sale">
+                    </div>
+                    <div class="product-body">
+                        <h3>Dividend Announcement & Share Sale Invitation</h3>
+                        <p><strong>Dividend Announcement:</strong> We are pleased to announce the distribution of dividends to our valued shareholders. These payments reflect the Bank's strong financial performance and its commitment to rewarding its investors.</p>
+                        <p><strong>Share Sale Invitation:</strong> This plan provides an opportunity for current shareholders to liquidate their investments and for new investors to acquire shares in a growing and stable financial institution.</p>
+                        <a href="https://maendeleobank.co.tz/index.php/2024/08/06/share-dividend-and-share-sale-for-maendeleo-bank-shareholders/" class="product-link">Read more <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="personal" class="tab-content">
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Lucy Women Special Saving Account">
+                    </div>
+                    <div class="product-body">
+                        <h3>Lucy Women Special Saving Account</h3>
+                        <p>Gender-smart banking solutions aim at offering products/solutions that create to women at all levels of the economic pyramid.</p>
+                        <a href="#" class="product-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Student Solution Account">
+                    </div>
+                    <div class="product-body">
+                        <h3>Student Solution Account</h3>
+                        <p>The account is designed for full time higher education students to create the convenience in money transfers as well as a mechanism for further education.</p>
+                        <a href="#" class="product-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1609220136736-443140cffec6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Smart Children Account">
+                    </div>
+                    <div class="product-body">
+                        <h3>Smart Children Account</h3>
+                        <p>It is a saving account with time deposit features. The account is opened by parents/guardians for a specific benefit of the children under 18 years of age to deposit money for their future career.</p>
+                        <a href="#" class="product-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="sme" class="tab-content">
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="SME Account">
+                    </div>
+                    <div class="product-body">
+                        <h3>SME Business Account</h3>
+                        <p>Tailored solutions for Small and Medium Enterprises to help your business grow and manage finances efficiently.</p>
+                        <a href="#" class="product-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="SME Loan">
+                    </div>
+                    <div class="product-body">
+                        <h3>SME Loan Services</h3>
+                        <p>Flexible loan options designed to support the growth and expansion of your small or medium business.</p>
+                        <a href="#" class="product-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="SME Advisory">
+                    </div>
+                    <div class="product-body">
+                        <h3>Business Advisory Services</h3>
+                        <p>Expert financial advice and strategic planning to help you navigate the complexities of running a business.</p>
+                        <a href="#" class="product-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="islamic" class="tab-content">
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Islamic Banking">
+                    </div>
+                    <div class="product-body">
+                        <h3>Interest-Free Banking</h3>
+                        <p>Shariah-compliant banking solutions that promote ethical and equitable financial practices.</p>
+                        <a href="#" class="product-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="diaspora" class="tab-content">
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Diaspora Banking">
+                    </div>
+                    <div class="product-body">
+                        <h3>Diaspora Banking</h3>
+                        <p>Special accounts and services designed for Tanzanians living abroad to manage their finances back home.</p>
+                        <a href="#" class="product-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="international" class="tab-content">
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="International Banking">
+                    </div>
+                    <div class="product-body">
+                        <h3>International Banking</h3>
+                        <p>Global banking solutions including foreign exchange, trade finance, and international transfers.</p>
+                        <a href="#" class="product-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOREX SECTION -->
+    <section class="forex-section">
+        <div class="container">
+            <div class="forex-header">
+                <h2>Forex Exchange Rates</h2>
+                <p>Updated daily to give you the best value.</p>
+            </div>
+            <div class="forex-table-wrapper">
+                <table class="forex-table">
+                    <thead>
+                        <tr>
+                            <th>Currency</th>
+                            <th>Code</th>
+                            <th>Buying (TZS)</th>
+                            <th>Selling (TZS)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="currency-info"><img src="https://flagcdn.com/w40/us.png" class="flag-icon" alt="USA"> USA Cash (50-100)</div></td>
+                            <td>USD</td>
+                            <td class="buy-rate">2,560.00</td>
+                            <td class="sell-rate">2,650.00</td>
+                        </tr>
+                        <tr>
+                            <td><div class="currency-info"><img src="https://flagcdn.com/w40/us.png" class="flag-icon" alt="USA"> USA Cash (1-20)</div></td>
+                            <td>USD</td>
+                            <td class="buy-rate">2,530.00</td>
+                            <td class="sell-rate">2,620.00</td>
+                        </tr>
+                        <tr>
+                            <td><div class="currency-info"><img src="https://flagcdn.com/w40/eu.png" class="flag-icon" alt="Euro"> Euro</div></td>
+                            <td>EUR</td>
+                            <td class="buy-rate">2,800.00</td>
+                            <td class="sell-rate">2,905.00</td>
+                        </tr>
+                        <tr>
+                            <td><div class="currency-info"><img src="https://flagcdn.com/w40/gb.png" class="flag-icon" alt="UK"> United Kingdom</div></td>
+                            <td>GBP</td>
+                            <td class="buy-rate">3,200.00</td>
+                            <td class="sell-rate">3,320.00</td>
+                        </tr>
+                        <tr>
+                            <td><div class="currency-info"><img src="https://flagcdn.com/w40/ke.png" class="flag-icon" alt="Kenya"> Kenya</div></td>
+                            <td>KES</td>
+                            <td class="buy-rate">18.50</td>
+                            <td class="sell-rate">19.20</td>
+                        </tr>
+                        <tr>
+                            <td><div class="currency-info"><img src="https://flagcdn.com/w40/za.png" class="flag-icon" alt="South Africa"> South Africa</div></td>
+                            <td>ZAR</td>
+                            <td class="buy-rate">124.00</td>
+                            <td class="sell-rate">128.90</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- MOBILE BANKING SECTION -->
+    <section class="mobile-section">
+        <div class="container mobile-grid">
+            <div class="mobile-text">
+                <h2>Banking at your fingertips</h2>
+                <p>Access our services using the USSD code for a seamless banking experience. No internet required.</p>
+                <div class="ussd-highlight">
+                    <span class="dial-label">Dial</span>
+                    <span id="typed-text"></span><span class="typing-cursor"></span>
+                </div>
+                <ul class="mobile-features">
+                    <li><i class="fas fa-check"></i> Transfer Transactions Within the Bank</li>
+                    <li><i class="fas fa-check"></i> External Transfers</li>
+                    <li><i class="fas fa-check"></i> Bill Payments: Pay your utility bills including electricity</li>
+                </ul>
+                <br>
+                <a href="https://maendeleobank.co.tz/index.php/mbmobile/" class="btn btn-outline" style="border-color: white; color: white; padding: 12px 24px; border-radius: 50px; font-weight: 600; display: inline-block; border: 2px solid white; transition: all 0.3s;">Read More</a>
+            </div>
+            <div class="mobile-image">
+                <img src="https://maendeleobank.co.tz/wp-content/uploads/2024/08/mb-mobile-01.png" alt="Mobile Banking">
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="https://maendeleobank.co.tz/wp-content/uploads/2026/08/Original-white.png" alt="Maendeleo Bank">
+                    <p>Together in Progress. Providing innovative financial solutions for Tanzanians.</p>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/maendeleobankplctz" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/maendeleobankplc/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com/Maendeleobanktz" target="_blank"><i class="fab fa-x-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>Head Office, Luther House</li>
+                        <li>P.O.Box 216, Dar es Salaam</li>
+                        <li>Info@maendeleobank.co.tz</li>
+                        <li>Toll Free: 0800750089</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Open Hours</h4>
+                    <ul>
+                        <li>Mon - Fri: 8:30am - 16:00pm</li>
+                        <li>Saturday: 8:30am - 1:00pm</li>
+                        <li>Sunday: Closed</li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="https://maendeleobank.co.tz/index.php/personal-banking/">Personal Banking</a></li>
+                        <li><a href="https://maendeleobank.co.tz/index.php/business-banking/">Business Banking</a></li>
+                        <li><a href="https://maendeleobank.co.tz/index.php/loans/">Loans</a></li>
+                        <li><a href="https://maendeleobank.co.tz/index.php/agm-book/">AGM Book</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Maendeleo Bank Plc.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         MCENTER BRAND FOOTER (NEW - Added at the very end)
+         ========================================== -->
+
+    <div class="mcenter-footer">
+<p> BY </p>
+        <!-- Mcenter Brand -->
+        <div class="mcenter-brand">
+            <span class="mcenter-brand-name">
+                <span class="mc1">M</span><span class="mc2">c</span><span class="mc3">e</span><span class="mc4">n</span><span class="mc5">t</span><span class="mc6">e</span><span class="mc7">r</span>
+            </span>
+            <span class="mcenter-divider"></span>
+            <div class="mcenter-side">
+                <span class="mcenter-sub">IT Service and IT Solution</span>
+                <span class="mcenter-tagline">"Your technology partner always"</span>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+
+        <div class="mcenter-contact">
+            <div class="mcenter-contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <a href="tel:+255778743765">Phone: +255 778 743 765</a>
+            </div>
+            <div class="mcenter-contact-item">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:info@mcenter.co.tz">Email 1: info@mcenter.co.tz</a>
+            </div>
+            <div class="mcenter-contact-item">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:mncentertz@gmail.com">Email 2: mncentertz@gmail.com</a>
+            </div>
+            <div class="mcenter-contact-item">
+                <i class="fas fa-globe"></i>
+                <a href="https://mcenter.co.tz/" target="_blank">Website: https://mcenter.co.tz/</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         AI ASSISTANT CHATBOT
+         ========================================== -->
+    <div class="ai-float-btn" id="aiFloatBtn">
+        <i class="fas fa-robot"></i>
+        <span class="badge">1</span>
+    </div>
+
+    <div class="ai-chat-window" id="aiChatWindow">
+        <div class="ai-chat-header">
+            <div class="ai-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="ai-info">
+                <h4>Maendeleo AI Assistant</h4>
+                <p><span class="status-dot"></span> Online</p>
+            </div>
+            <button class="ai-chat-close" id="aiChatClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="ai-chat-body" id="aiChatBody">
+            <div class="ai-message">
+                Hello! 👋 I'm the Maendeleo Bank AI Assistant. How can I help you today?
+            </div>
+        </div>
+
+        <div class="ai-suggestions" id="aiSuggestions">
+            <button class="suggestion-chip" onclick="sendSuggestion('What are your loan services?')">Loan Services</button>
+            <button class="suggestion-chip" onclick="sendSuggestion('How do I open an account?')">Open Account</button>
+            <button class="suggestion-chip" onclick="sendSuggestion('What are your forex rates?')">Forex Rates</button>
+            <button class="suggestion-chip" onclick="sendSuggestion('Where are your branches?')">Branches</button>
+        </div>
+
+        <div class="ai-chat-footer">
+            <input type="text" id="aiChatInput" placeholder="Type your question..." onkeypress="handleKeyPress(event)">
+            <button class="ai-chat-send" onclick="sendMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Sticky Header Effect
+        const headerWrapper = document.getElementById('header-wrapper');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                headerWrapper.classList.add('scrolled');
+            } else {
+                headerWrapper.classList.remove('scrolled');
+            }
+        });
+
+        // Tab Functionality
+        function openTab(evt, tabName) {
+            var i, tabContent, tabBtn;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].style.display = "none";
+                tabContent[i].classList.remove("active");
+            }
+            tabBtn = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabBtn.length; i++) {
+                tabBtn[i].className = tabBtn[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "grid";
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.className += " active";
+        }
+
+        // Mobile Menu Functionality
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+        hamburgerBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        document.querySelectorAll('.mobile-nav-links a, .mobile-utility-links a, .mobile-action-buttons a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // --- TYPING ANIMATION FOR USSD CODE ---
+        const textToType = "*150*52#";
+        const typingElement = document.getElementById("typed-text");
+        let charIndex = 0;
+
+        function typeText() {
+            if (charIndex < textToType.length) {
+                typingElement.textContent += textToType.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeText, 300);
+            } else {
+                setTimeout(() => {
+                    typingElement.textContent = "";
+                    charIndex = 0;
+                    typeText();
+                }, 2000);
+            }
+        }
+
+        typeText();
+
+        // ==========================================
+        // AI CHATBOT FUNCTIONALITY
+        // ==========================================
+        const aiFloatBtn = document.getElementById('aiFloatBtn');
+        const aiChatWindow = document.getElementById('aiChatWindow');
+        const aiChatClose = document.getElementById('aiChatClose');
+        const aiChatBody = document.getElementById('aiChatBody');
+        const aiChatInput = document.getElementById('aiChatInput');
+        const aiSuggestions = document.getElementById('aiSuggestions');
+
+        aiFloatBtn.addEventListener('click', () => {
+            aiChatWindow.classList.toggle('active');
+            if (aiChatWindow.classList.contains('active')) {
+                document.querySelector('.ai-float-btn .badge').style.display = 'none';
+            }
+        });
+
+        aiChatClose.addEventListener('click', () => {
+            aiChatWindow.classList.remove('active');
+        });
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const message = aiChatInput.value.trim();
+            if (message === '') return;
+
+            addUserMessage(message);
+            aiChatInput.value = '';
+            aiSuggestions.style.display = 'none';
+            showTypingIndicator();
+
+            setTimeout(() => {
+                hideTypingIndicator();
+                addAIMessage("Sorry, I am still growing my ability. Try to contact us on <strong>0800750089</strong>.");
+            }, 1500);
+        }
+
+        function sendSuggestion(question) {
+            addUserMessage(question);
+            aiSuggestions.style.display = 'none';
+            showTypingIndicator();
+
+            setTimeout(() => {
+                hideTypingIndicator();
+                addAIMessage("Sorry, I am still growing my ability. Try to contact us on <strong>0800750089</strong>.");
+            }, 1500);
+        }
+
+        function addUserMessage(text) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'user-message';
+            msgDiv.textContent = text;
+            aiChatBody.appendChild(msgDiv);
+            scrollToBottom();
+        }
+
+        function addAIMessage(text) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'ai-message';
+            msgDiv.innerHTML = text;
+            aiChatBody.appendChild(msgDiv);
+            scrollToBottom();
+        }
+
+        function showTypingIndicator() {
+            const indicator = document.createElement('div');
+            indicator.className = 'typing-indicator';
+            indicator.id = 'typingIndicator';
+            indicator.innerHTML = '<span></span><span></span><span></span>';
+            aiChatBody.appendChild(indicator);
+            scrollToBottom();
+        }
+
+        function hideTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) indicator.remove();
+        }
+
+        function scrollToBottom() {
+            aiChatBody.scrollTop = aiChatBody.scrollHeight;
+        }
+    </script>
+</body>
+</html>
